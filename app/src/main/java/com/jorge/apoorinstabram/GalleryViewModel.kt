@@ -1,39 +1,47 @@
 package com.jorge.apoorinstabram
 
+import android.content.Intent
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.jorge.apoorinstabram.network.Gallery
+import com.jorge.apoorinstabram.network.ImgurApi
+import com.jorge.apoorinstabram.session.Session
+import com.jorge.apoorinstabram.session.SessionLocalDataSource
+import com.jorge.apoorinstabram.session.SessionRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
-class GalleryViewModel : ViewModel() {
+
+class GalleryViewModel(
+    private val api: ImgurApi,
+    private val sessionRepository: SessionRepository,
+) : ViewModel() {
 
     /** se crea un liveData para el adapter*/
-    val state: MutableLiveData<GalleryState> = MutableLiveData()
+    private val stateMLD: MutableLiveData<GalleryState> = MutableLiveData()
 
-    /** se crea una variable de la api okhttpcliente*/
-    private val api: ImgurApi
+    /** para no exponer el mutableLiveData*/
+    val state: LiveData<GalleryState>
+        get() = stateMLD
+
+    /** Se crea un MutableliveData para la Session*/
+    private val sessionMLD: MutableLiveData<SessionState> = MutableLiveData()
+    val session: LiveData<SessionState>
+        get() = sessionMLD
+
 
     /** se crean job*/
     private var requestJob: Job? = null
 
-    /** inicializar el oKhttpClient */
     init {
-        val cliente = OkHttpClient().newBuilder().build()
-        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.imgur.com/3/")
-            .client(cliente)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-        api = retrofit.create(ImgurApi::class.java)
+        sessionRepository.getSession()?.let { session ->
+            sessionMLD.postValue(SessionState(session != null, session?.accountName))
+        }
     }
+
 
     fun getHotImages() {
         /**Creando el RetroFit **/
@@ -41,17 +49,7 @@ class GalleryViewModel : ViewModel() {
         requestJob?.cancel()
         requestJob = viewModelScope.launch(Dispatchers.IO) {
             val gallery = api.getHotGallery()
-
-            /** haciendo un filter*/
-            val images = gallery?.data?.mapNotNull { image ->
-                image.images?.first()?.link
-            }?.filter {
-                it.contains(".jpg") ||
-                        it.contains(".png")
-            }?.map {
-                Image(it)
-            }
-            state.postValue(GalleryState(images))
+            parseGallery(gallery)
         }
     }
 
@@ -61,19 +59,49 @@ class GalleryViewModel : ViewModel() {
         requestJob?.cancel()
         requestJob = viewModelScope.launch(Dispatchers.IO) {
             val gallery = api.getTopGallery()
-
-            /** haciendo un filter*/
-            val images = gallery?.data?.mapNotNull { image ->
-                image.images?.first()?.link
-            }?.filter {
-                it.contains(".jpg") ||
-                        it.contains(".png")
-            }?.map {
-                Image(it)
-            }
-            state.postValue(GalleryState(images))
+            parseGallery(gallery)
         }
     }
 
+    fun processIntentData(intent: Intent) {
+
+        val url = intent.data.toString()
+        "imgram://oauth2.+".toRegex().matches(url).alsoIfTrue {
+            val accesToken = "access_token=(\\w+)".toRegex().find(url)!!.groupValues[1]
+            "expires_in=(\\w+)".toRegex()
+                .find(url)!!.groupValues[1].toLong() + System.currentTimeMillis()
+            "token_type=(\\w+)".toRegex().find(url)!!.groupValues[1]
+            "refresh_token=(\\w+)".toRegex().find(url)!!.groupValues[1]
+            val accountName = "account_username=(\\w+)".toRegex().find(url)!!.groupValues[1]
+            "account_id=(\\w+)".toRegex().find(url)!!.groupValues[1]
+
+            Session(accesToken, accountName)
+                .also { session ->
+                    sessionRepository.saveSession(session)
+                }.also { session ->
+                    sessionMLD.postValue(
+                        SessionState(true, session.accountName)
+                    )
+                }
+        }
+    }
+
+    private fun parseGallery(gallery: Gallery) {
+        /** haciendo un filter*/
+        val images = gallery?.data?.mapNotNull { image ->
+            image.images?.first()?.link
+        }?.filter {
+            it.contains(".jpg") ||
+                    it.contains(".png")
+        }?.map {
+            Image(it)
+        }
+
+        stateMLD.postValue(GalleryState(images))
+    }
+
     data class GalleryState(val images: List<Image>?)
+    data class SessionState(val hasSession: Boolean, val accountName: String?)
 }
+
+

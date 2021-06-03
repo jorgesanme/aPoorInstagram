@@ -1,6 +1,7 @@
-package com.jorge.apoorinstabram
+package com.jorge.apoorinstabram.network
 
 
+//@JsonClass(generateAdapter = true) // para no mal ofuscar el modelo de red
 
 data class Gallery(
     val data: List<Image>,
