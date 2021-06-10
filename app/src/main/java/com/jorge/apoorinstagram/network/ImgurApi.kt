@@ -17,4 +17,9 @@ interface ImgurApi {
 
     @GET ("account/me/images")
     suspend fun getMyGallery(): NetworkGallery
+
+    @Headers (  "Authorization: Client-ID 3795c60af5383c1")
+    @GET ("album/id")
+    suspend fun getAlbum(): NetworkGallery
+
 }

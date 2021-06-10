@@ -1,8 +1,10 @@
 package com.jorge.apoorinstagram.network
 
+import androidx.versionedparcelable.VersionedParcelize
+
 
 //@JsonClass(generateAdapter = true) // para no mal ofuscar el modelo de red
-
+@VersionedParcelize
 data class NetworkGallery(
     val data: List<NetworkImage>,
     val success: Boolean,

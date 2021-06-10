@@ -10,7 +10,7 @@ import org.kodein.di.singleton
 object GalleryDIModule: DIBaseModule("GalleryDIModule") {
     override val builder: DI.Builder.() -> Unit = {
         bind<GalleryRepository>() with singleton {
-            GalleryRepositoryImpl(instance())
+            GalleryRepositoryImpl(instance(), instance())
         }
     }
 
