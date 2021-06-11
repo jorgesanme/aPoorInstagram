@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Un instagram pobre</string>
+    <string name="see_album">Ver el álbum</string>
+    <string name="buttonBack">Volver</string>
+</resources>

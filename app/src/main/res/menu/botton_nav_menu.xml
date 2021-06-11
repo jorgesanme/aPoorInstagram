@@ -10,6 +10,13 @@
         android:icon="@drawable/ic_star_black_24dp"
         android:iconTint="#5F5E5E"
         android:title="Top" />
+
+    <item
+        android:id="@+id/menu_me"
+        android:icon="@drawable/ic_login_24"
+        android:iconTint="#E50A0A"
+        android:title="My Images"
+        />
     <item
         android:id="@+id/menu_login"
         android:icon="@drawable/ic_login_24"

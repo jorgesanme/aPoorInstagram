@@ -1,21 +1,24 @@
-package com.jorge.apoorinstabram
+package com.jorge.apoorinstagram.network
+
+import androidx.versionedparcelable.VersionedParcelize
 
 
-
-data class Gallery(
-    val data: List<Image>,
+//@JsonClass(generateAdapter = true) // para no mal ofuscar el modelo de red
+@VersionedParcelize
+data class NetworkGallery(
+    val data: List<NetworkImage>,
     val success: Boolean,
     val status: Int
 ) {
-    data class Image(
+    data class NetworkImage(
         val id: String,
         val title: String?,
         val description: String?,
-        val datetime: Int,
+        val datetime: Long,
         val cover: String?,
         val cover_width: Int?,
         val cover_height: Int?,
-        val accountUrl: String?,
+        val account_url: String?,
         val account_id: Int?,
         val privacy: String?,
         val layout: String?,
@@ -35,9 +38,9 @@ data class Gallery(
         val topic_id: Int?,
         val images_count: Int?,
         val in_gallery: Boolean,
-        val tags: List<Tag>,
+        val tags: List<NetworkTag>,
         val in_most_viral: Boolean,
-        val images: List<Image>?,
+        val images: List<NetworkImage>?,
         val type: String?,
         val animated: Boolean?,
         val width: Int?,
@@ -53,7 +56,7 @@ data class Gallery(
         val looping: Boolean?,
         val processing: Processing?
     ) {
-        data class Tag(
+        data class NetworkTag(
             val name: String,
             val display_name: String,
             val followers: Int,

@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jorge.apoorinstabram">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.jorge.apoorinstagram">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.jorge.apoorinstagram.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.APoorInstabram">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.jorge.apoorinstagram.album.AlbumActivity"></activity>
+        <activity android:name="com.jorge.apoorinstagram.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:label="Oauth2">
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.category.BROWSABLE" />
+                <!-- interceptar url con imgram://oauth2 -->
+                <data
+                    android:host="oauth2"
+                    android:scheme="imgram" />
             </intent-filter>
         </activity>
     </application>

@@ -1,4 +1,4 @@
-package com.jorge.apoorinstabram
+package com.jorge.apoorinstagram
 
 import org.junit.Test
 
