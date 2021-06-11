@@ -65,30 +65,21 @@ data class GalleryViewHolder(val binding: GalleryItemBinding) :
                 toAlbum.visibility = View.GONE
         }
         binding.toAlbum.setOnClickListener {
+            Timber.tag("jorge").d(image.id)// preparando 1º version
 
-            Timber.tag("jorge").d("${image.id}")// preparando 1º version
-            //muestra la lista de imagenes del album
-            Timber.tag("jorge").d("${image.album}") // para pasar el album por bundle
-
-            var context = binding.root.context
+            val context = binding.root.context
             val intent = Intent(context, AlbumActivity::class.java).apply {
                 val urlString = image.album?.map { it ->
                     it.link
-                }?.joinToString ()
+                }?.joinToString (", ")
 
                 val bundle = Bundle()
                 bundle.putString("album", urlString)
                   this.putExtras(bundle)
             }
             context.startActivity(intent)
-
-
         }
 
     }
-
-
-
-
 
 }

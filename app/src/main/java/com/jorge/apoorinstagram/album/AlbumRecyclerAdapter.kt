@@ -41,6 +41,9 @@ data class AlbumViewHolder(val binding: AlbumItemBinding):
             Glide.with(root)
                 .load(image)
                 .into(imageView)
+
         }
+
+
     }
 }

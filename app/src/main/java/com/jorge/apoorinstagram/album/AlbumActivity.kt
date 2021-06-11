@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.jorge.apoorinstagram.GalleryViewModel
+import com.jorge.apoorinstagram.MainActivity
 import com.jorge.apoorinstagram.databinding.ActivityAlbumBinding
 import com.jorge.apoorinstagram.network.NetworkGallery
 import kotlinx.coroutines.flow.collect
@@ -27,10 +28,15 @@ class AlbumActivity : AppCompatActivity(), DIAware {
             setContentView(it.root)
         }
 
-        val albumData= intent.getStringExtra("album")?.split(",")
+        val albumData= intent.getStringExtra("album")?.split(", ")
         val adapter = AlbumRecyclerAdapter()
         binding.albumRecycleView.adapter = adapter
         adapter.imagesList = albumData ?: emptyList()
+
+        binding.backButton.setOnClickListener{
+            finish()
+        }
+
 
 
 
