@@ -13,14 +13,14 @@ data class RoomImage(
     @ColumnInfo(name = "datetime") val datetime: Long,
     @ColumnInfo(name = "author") val author: String?,
     @ColumnInfo(name = "imageCount") val imageCount: Int,
-//    @ColumnInfo(name = "type") val type: ImageType,
-//    @TypeConverter()
-/** Si reutilizas el modelo de otro y quieres ignorar algun valor o campo*/
-   // @Ignore() val otroAlbum: List<NetworkGallery.NetworkImage>?
+    @ColumnInfo(name = "type") val type: ImageType,
+
+    /** Si reutilizas el modelo de otro y quieres ignorar algun valor o campo*/
+    // @Ignore() val otroAlbum: List<NetworkGallery.NetworkImage>?
 )
 
-    enum class ImageType{
-        HOT,
-        TOP,
-        MY_IMAGES
-    }
+enum class ImageType {
+    HOT,
+    TOP,
+    MY_IMAGES
+}

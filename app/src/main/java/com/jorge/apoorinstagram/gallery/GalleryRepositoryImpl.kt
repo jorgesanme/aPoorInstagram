@@ -1,10 +1,10 @@
 package com.jorge.apoorinstagram.gallery
 
 
-import androidx.room.Room
 import com.jorge.apoorinstagram.network.ImgurApi
 import com.jorge.apoorinstagram.network.NetworkGallery
 import com.jorge.apoorinstagram.room.ImageDAO
+import com.jorge.apoorinstagram.room.ImageType
 import com.jorge.apoorinstagram.room.RoomImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -18,19 +18,30 @@ class GalleryRepositoryImpl(
     override suspend fun getHotGallery() =
         withContext(Dispatchers.IO) {
             try {
-                imgurApi.getHotGallery().toDomain().also {gallery ->
-                imageDAO.insertImages(gallery.toRoom())
+                imgurApi.getHotGallery().toDomain().also { gallery ->
+                    imageDAO.insertImages(gallery.toRoom(ImageType.HOT))
                 }
             } catch (e: Exception) {
                 Timber.e(e)
-                imageDAO.getImages().toDoamin()
+                //imageDAO.getHotImages().toDoamin()
+                /** simplificado*/
+                imageDAO.getImages(ImageType.HOT).toDoamin()
             }
         }
 
 
     override suspend fun getTopGallery() =
         withContext(Dispatchers.IO) {
-            imgurApi.getTopGallery().toDomain()
+            try {
+                imgurApi.getTopGallery().toDomain().also { gallery ->
+                    imageDAO.insertImages(gallery.toRoom(ImageType.TOP))
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+                //imageDAO.getTopImages().toDoamin()
+                /** simplificado*/
+                imageDAO.getImages(ImageType.TOP).toDoamin()
+            }
         }
 
     override suspend fun getMyGallery() =
@@ -79,7 +90,7 @@ class GalleryRepositoryImpl(
         )
     }
 
-    private fun Gallery.toRoom(): List<RoomImage> =
+    private fun Gallery.toRoom(imageType: ImageType): List<RoomImage> =
         images.map { image ->
             RoomImage(
                 title = image.title,
@@ -88,7 +99,9 @@ class GalleryRepositoryImpl(
                 likes = image.likes,
                 datetime = image.datetime,
                 author = image.author,
-                imageCount = image.imageCount
+                imageCount = image.imageCount,
+                type = imageType
+
             )
         }
 
