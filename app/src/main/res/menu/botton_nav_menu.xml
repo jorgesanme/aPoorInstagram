@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_hot"
+        android:icon="@drawable/ic_baseline_local_fire_department_24"
+        android:iconTint="#5F5E5E"
+        android:title="Hot" />
+    <item
+        android:id="@+id/menu_top"
+        android:icon="@drawable/ic_star_black_24dp"
+        android:iconTint="#5F5E5E"
+        android:title="Top" />
+
+    <item
+        android:id="@+id/menu_me"
+        android:icon="@drawable/ic_login_24"
+        android:iconTint="#E50A0A"
+        android:title="My Images"
+        />
+    <item
+        android:id="@+id/menu_login"
+        android:icon="@drawable/ic_login_24"
+        android:iconTint="#5F5E5E"
+        android:title="Login"
+        />
+
+</menu>
+
