@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/jorge/AndroidStudioProjects/BootCamp/APoorInstabram/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_album.xml",
+        "source": "/home/jorge/AndroidStudioProjects/BootCamp/APoorInstabram/app/src/main/res/layout/activity_album.xml"
+    },
+    {
+        "merged": "/home/jorge/AndroidStudioProjects/BootCamp/APoorInstabram/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/gallery_item.xml",
+        "source": "/home/jorge/AndroidStudioProjects/BootCamp/APoorInstabram/app/src/main/res/layout/gallery_item.xml"
+    },
+    {
+        "merged": "/home/jorge/AndroidStudioProjects/BootCamp/APoorInstabram/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/album_item.xml",
+        "source": "/home/jorge/AndroidStudioProjects/BootCamp/APoorInstabram/app/src/main/res/layout/album_item.xml"
+    },
+    {
+        "merged": "/home/jorge/AndroidStudioProjects/BootCamp/APoorInstabram/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_main.xml",
+        "source": "/home/jorge/AndroidStudioProjects/BootCamp/APoorInstabram/app/src/main/res/layout/activity_main.xml"
+    }
+]

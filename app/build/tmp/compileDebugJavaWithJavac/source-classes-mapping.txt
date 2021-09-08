@@ -1,0 +1,21 @@
+com/jorge/apoorinstagram/databinding/AlbumItemBinding.java
+ com.jorge.apoorinstagram.databinding.AlbumItemBinding
+com/jorge/apoorinstagram/databinding/GalleryItemBinding.java
+ com.jorge.apoorinstagram.databinding.GalleryItemBinding
+com/jorge/apoorinstagram/databinding/ActivityMainBinding.java
+ com.jorge.apoorinstagram.databinding.ActivityMainBinding
+com/jorge/apoorinstagram/databinding/ActivityAlbumBinding.java
+ com.jorge.apoorinstagram.databinding.ActivityAlbumBinding
+com/jorge/apoorinstagram/BuildConfig.java
+ com.jorge.apoorinstagram.BuildConfig
+com/jorge/apoorinstagram/room/ImageDAO_Impl.java
+ com.jorge.apoorinstagram.room.ImageDAO_Impl
+ com.jorge.apoorinstagram.room.ImageDAO_Impl$1
+ com.jorge.apoorinstagram.room.ImageDAO_Impl$2
+ com.jorge.apoorinstagram.room.ImageDAO_Impl$3
+ com.jorge.apoorinstagram.room.ImageDAO_Impl$4
+ com.jorge.apoorinstagram.room.ImageDAO_Impl$5
+ com.jorge.apoorinstagram.room.ImageDAO_Impl$6
+com/jorge/apoorinstagram/room/AppDataBase_Impl.java
+ com.jorge.apoorinstagram.room.AppDataBase_Impl
+ com.jorge.apoorinstagram.room.AppDataBase_Impl$1
