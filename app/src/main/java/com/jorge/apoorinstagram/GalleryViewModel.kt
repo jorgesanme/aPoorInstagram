@@ -3,6 +3,7 @@ package com.jorge.apoorinstagram
 import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jorge.apoorinstagram.album.Album
 import com.jorge.apoorinstagram.gallery.GalleryRepository
 import com.jorge.apoorinstagram.gallery.Image
 import com.jorge.apoorinstagram.session.Session
@@ -30,6 +31,11 @@ class GalleryViewModel(
     private val sessionFlow: MutableStateFlow<SessionState> = MutableStateFlow(SessionState.empty())
     val session: StateFlow<SessionState>
         get() = sessionFlow
+
+    /** experimento para el album*/
+    private  val albumFlow: MutableStateFlow<AlbumState> = MutableStateFlow(AlbumState.empty())
+    val albums: StateFlow<AlbumState>
+    get() = albumFlow
 
     /** Manejador de errores con Handler */
     private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -106,6 +112,11 @@ class GalleryViewModel(
     data class GalleryState(val images: List<Image>?, val hasError: Boolean = false) {
         companion object {
             fun empty() = GalleryState(emptyList(), false)
+        }
+    }
+    data class AlbumState(val images: List<Album>?){
+        companion object{
+            fun empty() = AlbumState(emptyList())
         }
     }
 

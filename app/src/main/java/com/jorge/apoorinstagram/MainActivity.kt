@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity(), DIAware {
         binding.galleryRecyclerView.adapter = adapter
 
         viewModel.getHotImages()
-
         /**Usando Flow en lugar de livedata */
         lifecycleScope.launchWhenStarted {
             launch {
@@ -67,8 +66,6 @@ class MainActivity : AppCompatActivity(), DIAware {
                     }
                     binding.bottomBar.menu.findItem(R.id.menu_me).isVisible =
                         sessionState.hasSession
-
-
                 }
             }
 

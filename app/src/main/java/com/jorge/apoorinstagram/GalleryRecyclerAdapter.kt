@@ -1,17 +1,25 @@
 package com.jorge.apoorinstagram
 
 
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jorge.apoorinstagram.album.AlbumActivity
+import com.jorge.apoorinstagram.databinding.ActivityAlbumBinding
 import com.jorge.apoorinstagram.databinding.GalleryItemBinding
 import com.jorge.apoorinstagram.gallery.Image
+import com.jorge.apoorinstagram.network.NetworkGallery
 import timber.log.Timber
+import java.io.Serializable
 
 class GalleryRecyclerAdapter : RecyclerView.Adapter<GalleryViewHolder>() {
-
     /** List of object to show **/
     var imageList: List<Image> = emptyList()
         /** una vez que se cambia la lista se
@@ -57,12 +65,21 @@ data class GalleryViewHolder(val binding: GalleryItemBinding) :
                 toAlbum.visibility = View.GONE
         }
         binding.toAlbum.setOnClickListener {
-            Timber.tag("jorge").d("${image.album}")
-            // TODO: 7/6/21  lanzar un Intent a activity nueva con el recycleview pasandole una lista  
-            
+            Timber.tag("jorge").d(image.id)// preparando 1º version
+
+            val context = binding.root.context
+            val intent = Intent(context, AlbumActivity::class.java).apply {
+                val urlString = image.album?.map { it ->
+                    it.link
+                }?.joinToString (", ")
+
+                val bundle = Bundle()
+                bundle.putString("album", urlString)
+                  this.putExtras(bundle)
+            }
+            context.startActivity(intent)
         }
 
-
-
     }
+
 }
