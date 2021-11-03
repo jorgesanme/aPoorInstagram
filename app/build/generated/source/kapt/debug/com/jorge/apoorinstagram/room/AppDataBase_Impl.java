@@ -30,12 +30,12 @@ public final class AppDataBase_Impl extends AppDataBase {
 
   @Override
   protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration configuration) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(2) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
       @Override
       public void createAllTables(SupportSQLiteDatabase _db) {
-        _db.execSQL("CREATE TABLE IF NOT EXISTS `images` (`id` TEXT NOT NULL, `title` TEXT, `url` TEXT NOT NULL, `likes` INTEGER NOT NULL, `datetime` INTEGER NOT NULL, `author` TEXT, `imageCount` INTEGER NOT NULL, `type` TEXT NOT NULL, PRIMARY KEY(`id`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `images` (`id` TEXT NOT NULL, `title` TEXT, `url` TEXT NOT NULL, `likes` INTEGER NOT NULL, `datetime` INTEGER NOT NULL, `author` TEXT, `imageCount` INTEGER NOT NULL, PRIMARY KEY(`id`))");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5cb776a76fa87694ad54c3db81c4912b')");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b44920e5f022e77e592e93e66a25c58f')");
       }
 
       @Override
@@ -79,7 +79,7 @@ public final class AppDataBase_Impl extends AppDataBase {
 
       @Override
       protected RoomOpenHelper.ValidationResult onValidateSchema(SupportSQLiteDatabase _db) {
-        final HashMap<String, TableInfo.Column> _columnsImages = new HashMap<String, TableInfo.Column>(8);
+        final HashMap<String, TableInfo.Column> _columnsImages = new HashMap<String, TableInfo.Column>(7);
         _columnsImages.put("id", new TableInfo.Column("id", "TEXT", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsImages.put("title", new TableInfo.Column("title", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsImages.put("url", new TableInfo.Column("url", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
@@ -87,7 +87,6 @@ public final class AppDataBase_Impl extends AppDataBase {
         _columnsImages.put("datetime", new TableInfo.Column("datetime", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsImages.put("author", new TableInfo.Column("author", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsImages.put("imageCount", new TableInfo.Column("imageCount", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsImages.put("type", new TableInfo.Column("type", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysImages = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesImages = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoImages = new TableInfo("images", _columnsImages, _foreignKeysImages, _indicesImages);
@@ -99,7 +98,7 @@ public final class AppDataBase_Impl extends AppDataBase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "5cb776a76fa87694ad54c3db81c4912b", "707a1b024a4b64271aebe32354cab58b");
+    }, "b44920e5f022e77e592e93e66a25c58f", "def20f4ccf18523897ef0dcf13dedbe1");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)

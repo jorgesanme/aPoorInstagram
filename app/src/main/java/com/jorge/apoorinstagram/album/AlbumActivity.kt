@@ -19,9 +19,6 @@ import org.kodein.di.instance
 
 class AlbumActivity : AppCompatActivity(), DIAware {
     override val di: DI by di()
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityAlbumBinding.inflate(layoutInflater).also {
@@ -36,13 +33,5 @@ class AlbumActivity : AppCompatActivity(), DIAware {
         binding.backButton.setOnClickListener{
             finish()
         }
-
-
-
-
     }
-
-
-
-
 }
